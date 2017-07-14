@@ -7,6 +7,7 @@
 	<body>
 		<h1>Data Design Etsy</h1>
 		<h2>Persona</h2>
+		<img src="images/beth.jpg" alt="picture of persona"/>
 		<p><strong>Name:</strong> Beth Macbeth</p>
 		<p><strong>Age:</strong> 31</p>
 		<p><strong>Profession:</strong> Beth is a stay at home mom with a 2 year old daughter and a newborn son. She is
