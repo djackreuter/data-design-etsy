@@ -40,6 +40,33 @@
 			even took pictures of her items the night before and has them in a folder on her desktop ready to be
 			uploaded to her posts. She knows she has about 45 min before her kids usually wake up and she wants to hurry
 			and get it done.</p>
-
+		<p><strong>Interaction Flow:</strong> On Etsy homepage, user clicks on "Sell on Etsy". The browser then goes to
+			a new page with a button in the center that says "Open your Etsy shop". Below that on the page are
+			highlights of selling on Etsy, such as low fees, powerful tools, and support and education, which all have a
+			"learn more" button on the bottom to read about each one.</p>
+		<p>After the user clicks on "Open your Etsy shop" the browser has a pop up on the same screen that asks the
+			user to either create an account or log in.</p>
+		<p>After the user logs in, the first page shows "Shop Preferences" where the user selects the shop's language,
+			country, and currency. Below that is a question "which of these best describes you?" with radio buttons that
+			list:</p>
+		<ul>
+			<li>Selling is my full-time job</li>
+			<li>I sell part-time but hope to sell full-time</li>
+			<li>I sell part-time and that's how I like it</li>
+			<li>Other</li>
+		</ul>
+		<p>After the user makes their selections they are brought to the next section which is "name your shop". The
+			user enters their desired shop name and is able to instantly check its availability. The user then clicks
+			on "Save & Continue and they are brought to the next section to stock their shop</p>
+		<p>The "Stock your shop" section has panels with a plus sign on the first one indicating to click on it to add
+			items. There is a message at the top of the page that suggests adding 10 or more items to start in order to
+			increase chances of being discovered.</p>
+		<p>Once the plus sign is clicked, a new page loads that says "add a new listing". There are 4 sections to the
+			page "photos, listing details, inventory and pricing, and shipping. Each section is accessed by scrolling
+			down on the page, and they all have instructions on filling out each section. Each section has a variety
+			of drop downs to select from for what is applicable to their items. Depending on what the user selects,
+			additional drop downs may populate. The user is unable to move forward until all the required fields are
+			filled out. Once the user is finished, they click "Save & Continue" to move on</p>
+		<p></p>
 	</body>
 </html>
