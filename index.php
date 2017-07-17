@@ -99,11 +99,13 @@
 			<li>itemId(primary key)</li>
 			<li>itemProfileId(foreign key)</li>
 			<li>itemInfo</li>
+			<li>itemDate</li>
 		</ul>
 		<p>Favorites(m-to-n)</p> <!-- many profiles can favorite many items -->
 		<ul>
 			<li>favUserId(foreign key)</li>
 			<li>favItem(foreign key)</li>
+			<li>favDate</li>
 		</ul>
 	</body>
 </html>
