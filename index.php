@@ -90,7 +90,8 @@
 		<ul>
 			<li>profileId(primary key)</li>
 			<li>profileEmail</li>
-			<li>profilePass</li>
+			<li>profileHash</li>
+			<li>profileSalt</li>
 			<li>profileContact</li>
 		</ul>
 		<p>Item (1-to-n)</p> <!-- one profile can have many items for sale -->
@@ -102,7 +103,7 @@
 		<p>Favorites(m-to-n)</p> <!-- many profiles can favorite many items -->
 		<ul>
 			<li>favUserId(foreign key)</li>
-			<li>favItemId(foreign key)</li>
+			<li>favItem(foreign key)</li>
 		</ul>
 	</body>
 </html>
