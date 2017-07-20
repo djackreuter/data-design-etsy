@@ -39,6 +39,15 @@ INSERT INTO favorites(favUserId, favItem, favDate)
 INSERT INTO favorites(favUserId, favItem, favDate)
 	VALUE(4, 2, NOW());
 
+-- update item
+UPDATE item SET itemInfo = 'More detailed item description' WHERE itemId = 1;
+UPDATE profile SET profileContact = '505-555-5555' WHERE profileId = 4;
+UPDATE item SET itemInfo = 'A tacky painting of Marlyn Monroe' WHERE itemId = 2;
+
+
+
+
+
 
 
 
