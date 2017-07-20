@@ -24,11 +24,21 @@ INSERT INTO item(itemProfileId, itemInfo, itemDate)
 	VALUES(2, 'Item Info', NOW());
 
 -- favorites
--- select both foreign keys
+-- select foreign keys
 
 SELECT itemId from item;
+SELECT favUserId from favorites;
+SELECT favItem from favorites;
 
-INSERT INTO favorites()
+INSERT INTO favorites(favUserId, favItem, favDate)
+	VALUE(1, 3, NOW());
+INSERT INTO favorites(favUserId, favItem, favDate)
+	VALUE(2, 1, NOW());
+INSERT INTO favorites(favUserId, favItem, favDate)
+	VALUE(3, 4, NOW());
+INSERT INTO favorites(favUserId, favItem, favDate)
+	VALUE(4, 2, NOW());
+
 
 
 
