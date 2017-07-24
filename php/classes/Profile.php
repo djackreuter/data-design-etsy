@@ -39,13 +39,15 @@ class Profile {
 	 * @var $profileActivationToken
 	 **/
 	private $profileActivationToken;
+
 	/**
 	 * accessor method for profile id
 	 * @return int|null value of $profileId
 	 **/
-	public function getProfileId() : int {
-		return($this->profileId);
+	public function getProfileId(): int {
+		return $this->profileId;
 	}
+
 	/**
 	 * mutator method for profile id
 	 *
@@ -53,27 +55,34 @@ class Profile {
 	 * @throws rangeException if $newProfileId is not positive
 	 * @throws typeError if $newProfileId is not an integer
 	 **/
-	public function setProfileId(?int $newProfileId) : void {
+	public function setProfileId(?int $newProfileId): void {
 		// if tweet id is null, immediately return it
 		if($newProfileId === null) {
 			$this->profileId = null;
 			return;
 		}
+
+		// verify the profile id is a positive number
+		if($newProfileId <= 0) {
+			throw(new RangeException("profile id is not positive"));
+		}
 	}
+
 	/**
 	 * accessor method for the profile email
 	 * @return string value of $profileEmail
 	 **/
-	public function getProfileEmail() : string {
-		return($this->profileEmail);
+	public function getProfileEmail(): string {
+		return $this->profileEmail;
 	}
+
 	/**
 	 * mutator method for profile email
 	 * @param string $newProfileEmail new value of profile email
 	 * @throws RangeException if $newProfileEmail is > 128 characters
 	 * @throws unexpectedValueException if $newProfileId is not a string
 	 **/
-	public function setProfileEmail(string $newProfileEmail) : void {
+	public function setProfileEmail(string $newProfileEmail): void {
 		// verify email is secure
 		$newProfileEmail = trim($newProfileEmail);
 		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANITIZE_EMAIL);
@@ -87,5 +96,82 @@ class Profile {
 		// store profile email
 		$this->profileEmail = $newProfileEmail;
 	}
+
+	/**
+	 * accessor method for the hash on the password
+	 *
+	 * @return string value for profile hash
+	 **/
+	public function getProfileHash(): string {
+		return $this->profileHash;
+	}
+
+	/**
+	 * mutator method for profile hash
+	 *
+	 * @param string $newProfileHash
+	 * @throws InvalidArgumentException if the hash is not secure
+	 * @throws RangeException if the hash is not 128 characters
+	 * @throws TypeError if hash is not a string
+	 **/
+	public function setProfileHash(string $newProfileHash): void {
+		// make sure hash is properly formatted
+		$newProfileHash = trim($newProfileHash);
+		$newProfileHash = strtolower($newProfileHash);
+		if(empty($newProfileHash) === true) {
+			throw(new InvalidArgumentException("profile password hash is empty"));
+		}
+
+		// make sure hash is a hexadecimal in string form
+		if(!ctype_xdigit($newProfileHash)) {
+			throw(new InvalidArgumentException("profile password hash is empty"));
+		}
+
+		// make sure hash is 128 characters
+		if($newProfileHash !== 128) {
+			throw(new RangeException("profile has must be 128 characters"));
+		}
+
+		// store the hash
+		$this->profileHash = $newProfileHash;
+	}
+
+	/**
+	 * accessor method for profile salt
+	 *
+	 * @return string value of the salt as a hexadecimal
+	 **/
+	public function getProfileSalt(): string {
+		return $this->profileSalt;
+	}
+
+	/**
+	 * mutator method for profile salt
+	 *
+	 * @param string $newProfileSalt
+	 * @throws InvalidArgumentException if salt is not secure
+	 * @throws RangeException if profile salt is not 64 characters
+	 * @throws TypeError if profile salt is not a string
+	 **/
+	public function setProfileSalt(string $newProfileSalt): void {
+		// ensure profile salt is the right format
+		$newProfileSalt = trim($newProfileSalt);
+		$newProfileSalt = strtolower($newProfileSalt);
+
+		// make sure salt is a hexadecimal
+		if(!ctype_xdigit($newProfileSalt)) {
+			throw(new InvalidArgumentException("profile salt is empty"));
+		}
+
+		// make sure salt is exactly 64 characters
+		if(strlen($newProfileSalt) !== 64) {
+			throw(new RangeException("salt must be 64 characters long"));
+		}
+
+		// store the salt
+		$this->profileSalt = $newProfileSalt;
+	}
+
+
 
 }
