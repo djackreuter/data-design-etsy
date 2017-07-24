@@ -14,6 +14,7 @@ CREATE TABLE profile (
 	profileHash CHAR(128) NOT NULL,
 	profileSalt CHAR(64) NOT NULL,
 	profileContact VARCHAR(500),
+	profileActivationToken CHAR(32) NOT NULL,
 	UNIQUE(profileEmail),
 	-- officiate the primary key for the entity
 	PRIMARY KEY(profileId)

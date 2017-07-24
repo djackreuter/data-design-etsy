@@ -15,6 +15,8 @@ SELECT profileId FROM profile;
 
 -- items
 INSERT INTO item(itemProfileId, itemInfo, itemDate)
+-- insert SET @lastProfileId = LAST_INSERT_ID( ); after each INSERT for the fk
+-- which would be profile id
 	VALUES(1, 'item info', NOW());
 INSERT INTO item(itemProfileId, itemInfo, itemDate)
 	VALUES(2, 'item info', NOW());
