@@ -45,7 +45,7 @@ class Profile {
 	 * @return int|null value of $profileId
 	 **/
 	public function getProfileId(): int {
-		return $this->profileId;
+		return ($this->profileId);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Profile {
 	 * @throws typeError if $newProfileId is not an integer
 	 **/
 	public function setProfileId(?int $newProfileId): void {
-		// if tweet id is null, immediately return it
+		// if profile id is null, immediately return it
 		if($newProfileId === null) {
 			$this->profileId = null;
 			return;
@@ -73,14 +73,14 @@ class Profile {
 	 * @return string value of $profileEmail
 	 **/
 	public function getProfileEmail(): string {
-		return $this->profileEmail;
+		return ($this->profileEmail);
 	}
 
 	/**
 	 * mutator method for profile email
 	 * @param string $newProfileEmail new value of profile email
 	 * @throws RangeException if $newProfileEmail is > 128 characters
-	 * @throws unexpectedValueException if $newProfileId is not a string
+	 * @throws UnexpectedValueException if $newProfileId is not a string
 	 **/
 	public function setProfileEmail(string $newProfileEmail): void {
 		// verify email is secure
@@ -103,7 +103,7 @@ class Profile {
 	 * @return string value for profile hash
 	 **/
 	public function getProfileHash(): string {
-		return $this->profileHash;
+		return ($this->profileHash);
 	}
 
 	/**
@@ -142,7 +142,7 @@ class Profile {
 	 * @return string value of the salt as a hexadecimal
 	 **/
 	public function getProfileSalt(): string {
-		return $this->profileSalt;
+		return ($this->profileSalt);
 	}
 
 	/**
@@ -172,6 +172,73 @@ class Profile {
 		$this->profileSalt = $newProfileSalt;
 	}
 
+	/**
+	 * accessor method for profile contact
+	 *
+	 *@return string value of profile contact
+	 **/
+	public function getProfileContact(): string {
+		return ($this->profileContact);
+	}
 
+	/**
+	 * mutator method for profile contact
+	 *
+	 * @param string $newProfileContact new value of profile contact
+	 * @throws UnexpectedValueException if profile contact is not a string
+	 * @throws RangeException if profile contact is greater than 500 characters
+	 **/
+	public function setProfileContact(string $newProfileContact): void {
+		// verify contact is secure
+		$newProfileContact = trim($newProfileContact);
+		$newProfileContact = filter_var($newProfileContact, FILTER_SANITIZE_STRING);
+		// make sure contact info is not empty
+		if(empty($newProfileContact) === true) {
+			throw(new UnexpectedValueException("please fill out all the fields"));
+		}
+		// make sure contact info is within the maximum allowable length
+		if(strlen($newProfileContact) > 500) {
+			throw(new RangeException("contact info is too many characters"));
+		}
 
+		// store the profile contact
+		$this->profileContact = $newProfileContact;
+	}
+
+	/**
+	 * accessor method for profile activation token
+	 *
+	 * @return string value of the profile activation token
+	 **/
+	private function getProfileActivationToken() {
+		return ($this->profileActivationToken);
+	}
+
+	/**
+	 * mutator method for profile activation token
+	 *
+	 * @param string $newProfileActivationToken
+	 * @throws InvalidArgumentException if the token is not a string
+	 * @throws RangeException if the token is not exactly 32 characters
+	 * @throws TypeError if the activation token is not a string
+	 **/
+	public function setProfileActivationToken(?string $newProfileActivationToken): void {
+		if($newProfileActivationToken === null) {
+			$this->profileActivationToken = null;
+			return;
+		}
+
+		$newProfileActivationToken = strtolower(trim($newProfileActivationToken));
+		if(ctype_xdigit($newProfileActivationToken) === false) {
+			throw(new RangeException("user activation is not valid"));
+		}
+
+		// make sure user activation token is only 32 characters
+		if(strlen($newProfileActivationToken) !== 32) {
+			throw(new RangeException("user activation token must be 32 characters"));
+		}
+
+		// store profile activation token
+		$this->profileActivationToken = $newProfileActivationToken;
+	}
 }
