@@ -41,6 +41,37 @@ class Profile {
 	private $profileActivationToken;
 
 	/**
+	 * constructor for this profile
+	 *
+	 * @param int|null $newProfileId of this profile
+	 * @param string $newProfileEmail containing profile email
+	 * @param string $newProfileHash for password hash
+	 * @param string $newProfileSalt for password salt
+	 * @param string $newProfileContact contact info for profile
+	 * @param string $newProfileActivationToken for activation token
+	 * @throws InvalidArgumentException if data types are not valid
+	 * @throws RangeException if data values are out of bounds (strings too long, negative integers)
+	 * @throws TypeError if data types violate type hints
+	 * @throws Exception if some other exception occurs
+	 * @documentation https://http://php.net/manual/en/language.oop5.decon.php
+	 **/
+	public function __construct(?int $newProfileId, string $newProfileEmail, string $newProfileHash, string
+	$newProfileSalt, string $newProfileContact, string $newProfileActivationToken) {
+		try {
+			$this->setProfileId($newProfileId);
+			$this->setProfileEmail($newProfileEmail);
+			$this->setProfileHash($newProfileHash);
+			$this->setProfileSalt($newProfileSalt);
+			$this->setProfileContact($newProfileContact);
+			$this->setProfileActivationToken($newProfileActivationToken);
+		} // determine what exception type was thrown
+			catch(InvalidArgumentException | RangeException | Exception | TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * accessor method for profile id
 	 * @return int|null value of $profileId
 	 **/
