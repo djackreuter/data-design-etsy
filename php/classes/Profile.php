@@ -308,16 +308,46 @@ class Profile {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-public function delete(\PDO $pdo) : void {
-	// make sure profileId is not null
-	if($this->profileId === null) {
-		throw(new PDOException("profile is already deleted or does not exist"));
+	public function delete(\PDO $pdo): void {
+		// make sure profileId is not null
+		if($this->profileId === null) {
+			throw(new PDOException("profile is already deleted or does not exist"));
+		}
+
+		// create a query template
+		$query = "DELETE FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holder in the template
+		$parameters = ["profileId" => $this->profileId];
+		$statement->execute($parameters);
 	}
 
-	// create a query template
-	$query = "DELETE FROM profile WHERE profileId = :profileId";
+	/**
+	 * updates profile in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+		// make sure profileId is not null
+		if($this->profileId === null) {
+			throw(new PDOException("unable to update profile; profile does not exist"));
+		}
 
-}
+		// create a query template
+		$query = "UPDATE profile SET profileEmail = :profileEmail, profileHash = :profileHash, profileSalt = :profileSalt, 
+profileContact = :profileContact, profileActivationToken = :profileActivationToken";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileSalt" =>
+			$this->profileSalt, "profileContact" => $this->profileContact, "profileActivationToken" =>
+			$this->profileActivationToken];
+		$statement->execute($parameters);
+	}
+
 
 }
 
