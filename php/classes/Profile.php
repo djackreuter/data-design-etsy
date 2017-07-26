@@ -241,7 +241,7 @@ class Profile {
 	 *
 	 * @return string value of the profile activation token
 	 **/
-	public function getProfileActivationToken() : string {
+	public function getProfileActivationToken(): string {
 		return ($this->profileActivationToken);
 	}
 
@@ -272,5 +272,52 @@ class Profile {
 		// store profile activation token
 		$this->profileActivationToken = $newProfileActivationToken;
 	}
+
+	/**
+	 * inserts profile into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
+		// make sure the profileId is null
+		if($this->profileId !== null) {
+			throw(new \PDOException("profile already exists"));
+		}
+
+		// create query template
+		$query = "INSERT INTO profile(profileEmail, profileHash, profileSalt, profileContact, profileActivationToken) 
+			VALUES (:profileEmail, :profileHash, :profileSalt, :profileContact, :profileActivationToken)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileSalt" =>
+			$this->profileSalt, "profileContact" => $this->profileContact, "profileActivationToken" =>
+			$this->profileActivationToken];
+		$statement->execute($parameters);
+
+		// update the null profileId with what mySQL just gave me
+		$this->profileId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * deletes profile from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+public function delete(\PDO $pdo) : void {
+	// make sure profileId is not null
+	if($this->profileId === null) {
+		throw(new PDOException("profile is already deleted or does not exist"));
+	}
+
+	// create a query template
+	$query = "DELETE FROM profile WHERE profileId = :profileId";
+
+}
+
 }
 
