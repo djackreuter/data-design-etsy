@@ -86,7 +86,7 @@ class Profile {
 	 * @throws \rangeException if $newProfileId is not positive
 	 * @throws \typeError if $newProfileId is not an integer
 	 **/
-	public function setProfileId(?int $newProfileId): void {
+	public function setProfileId(?int $newProfileId) : void {
 		// if profile id is null, immediately return it
 		if($newProfileId === null) {
 			$this->profileId = null;
@@ -103,7 +103,7 @@ class Profile {
 	 * accessor method for the profile email
 	 * @return string value of $profileEmail
 	 **/
-	public function getProfileEmail(): string {
+	public function getProfileEmail() : string {
 		return ($this->profileEmail);
 	}
 
@@ -113,7 +113,7 @@ class Profile {
 	 * @throws \RangeException if $newProfileEmail is > 128 characters
 	 * @throws \UnexpectedValueException if $newProfileId is not a string
 	 **/
-	public function setProfileEmail(string $newProfileEmail): void {
+	public function setProfileEmail(string $newProfileEmail) : void {
 		// verify email is secure
 		$newProfileEmail = trim($newProfileEmail);
 		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANITIZE_EMAIL);
@@ -133,7 +133,7 @@ class Profile {
 	 *
 	 * @return string value for profile hash
 	 **/
-	public function getProfileHash(): string {
+	public function getProfileHash() : string {
 		return ($this->profileHash);
 	}
 
@@ -145,7 +145,7 @@ class Profile {
 	 * @throws \RangeException if the hash is not 128 characters
 	 * @throws \TypeError if hash is not a string
 	 **/
-	public function setProfileHash(string $newProfileHash): void {
+	public function setProfileHash(string $newProfileHash) : void {
 		// make sure hash is properly formatted
 		$newProfileHash = trim($newProfileHash);
 		$newProfileHash = strtolower($newProfileHash);
@@ -159,7 +159,7 @@ class Profile {
 		}
 
 		// make sure hash is 128 characters
-		if($newProfileHash !== 128) {
+		if(strlen($newProfileHash) !== 128) {
 			throw(new \RangeException("profile has must be 128 characters"));
 		}
 
@@ -172,7 +172,7 @@ class Profile {
 	 *
 	 * @return string value of the salt as a hexadecimal
 	 **/
-	public function getProfileSalt(): string {
+	public function getProfileSalt() : string {
 		return ($this->profileSalt);
 	}
 
@@ -184,7 +184,7 @@ class Profile {
 	 * @throws \RangeException if profile salt is not 64 characters
 	 * @throws \TypeError if profile salt is not a string
 	 **/
-	public function setProfileSalt(string $newProfileSalt): void {
+	public function setProfileSalt(string $newProfileSalt) : void {
 		// ensure profile salt is the right format
 		$newProfileSalt = trim($newProfileSalt);
 		$newProfileSalt = strtolower($newProfileSalt);
@@ -208,7 +208,7 @@ class Profile {
 	 *
 	 * @return string value of profile contact
 	 **/
-	public function getProfileContact(): string {
+	public function getProfileContact() : string {
 		return ($this->profileContact);
 	}
 
@@ -219,7 +219,7 @@ class Profile {
 	 * @throws \UnexpectedValueException if profile contact is not a string
 	 * @throws \RangeException if profile contact is greater than 500 characters
 	 **/
-	public function setProfileContact(string $newProfileContact): void {
+	public function setProfileContact(string $newProfileContact) : void {
 		// verify contact is secure
 		$newProfileContact = trim($newProfileContact);
 		$newProfileContact = filter_var($newProfileContact, FILTER_SANITIZE_STRING);
@@ -241,7 +241,7 @@ class Profile {
 	 *
 	 * @return string value of the profile activation token
 	 **/
-	public function getProfileActivationToken(): string {
+	public function getProfileActivationToken() : string {
 		return ($this->profileActivationToken);
 	}
 
@@ -253,7 +253,7 @@ class Profile {
 	 * @throws \RangeException if the token is not exactly 32 characters
 	 * @throws \TypeError if the activation token is not a string
 	 **/
-	public function setProfileActivationToken(?string $newProfileActivationToken): void {
+	public function setProfileActivationToken(?string $newProfileActivationToken) : void {
 		if($newProfileActivationToken === null) {
 			$this->profileActivationToken = null;
 			return;
@@ -280,7 +280,7 @@ class Profile {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $pdo): void {
+	public function insert(\PDO $pdo) : void {
 		// make sure the profileId is null
 		if($this->profileId !== null) {
 			throw(new \PDOException("profile already exists"));
@@ -288,7 +288,7 @@ class Profile {
 
 		// create query template
 		$query = "INSERT INTO profile(profileEmail, profileHash, profileSalt, profileContact, profileActivationToken) 
-			VALUES (:profileEmail, :profileHash, :profileSalt, :profileContact, :profileActivationToken)";
+			VALUES(:profileEmail, :profileHash, :profileSalt, :profileContact, :profileActivationToken)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
@@ -308,7 +308,7 @@ class Profile {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function delete(\PDO $pdo): void {
+	public function delete(\PDO $pdo) : void {
 		// make sure profileId is not null
 		if($this->profileId === null) {
 			throw(new PDOException("profile is already deleted or does not exist"));
