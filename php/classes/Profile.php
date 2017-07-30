@@ -7,7 +7,7 @@
  * the profile class
  *
  * @author Jack Reuter <djreuter45@gmail.com>
- * @version 1.0.0
+ * @version 1.0.3
  **/
 class Profile {
 	/**
@@ -22,12 +22,12 @@ class Profile {
 	private $profileEmail;
 	/**
 	 * hash for profile password
-	 * @var $profileHash
+	 * @var string $profileHash
 	 **/
 	private $profileHash;
 	/**
 	 * salt for profile password
-	 * @var $profileSalt
+	 * @var string $profileSalt
 	 **/
 	private $profileSalt;
 	/**
@@ -37,7 +37,7 @@ class Profile {
 	private $profileContact;
 	/**
 	 * activation token for profile to make sure profile is valid
-	 * @var $profileActivationToken
+	 * @var string $profileActivationToken
 	 **/
 	private $profileActivationToken;
 
@@ -75,7 +75,7 @@ class Profile {
 	 * accessor method for profile id
 	 * @return int|null value of $profileId
 	 **/
-	public function getProfileId(): int {
+	public function getProfileId() : int {
 		return ($this->profileId);
 	}
 
